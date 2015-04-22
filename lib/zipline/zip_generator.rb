@@ -27,7 +27,9 @@ module Zipline
 
     def normalize(file)
       unless is_io?(file)
-        if file.respond_to?(:url) && (!defined?(::Paperclip::Attachment) || !file.is_a?(::Paperclip::Attachment))
+        if file.respond_to?(:path) && file.file.is_a?(CarrierWave::SanitizedFile)
+          file = File.open(file.path)
+        elsif file.respond_to?(:url) && (!defined?(::Paperclip::Attachment) || !file.is_a?(::Paperclip::Attachment))
           file = file
         elsif file.respond_to? :file
           file = File.open(file.file)
