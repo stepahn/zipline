@@ -55,7 +55,7 @@ module Zipline
           zip << buffer
         end
       else
-        the_remote_url = file.url(Time.now + 1.minutes)
+        the_remote_url = file.url
         c = Curl::Easy.new(the_remote_url) do |curl|
           curl.on_body do |data|
             zip << data
